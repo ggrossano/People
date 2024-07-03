@@ -1,0 +1,39 @@
+@model List<PersonViewModel>
+
+<h1>
+    Lista di persone
+</h1>
+
+@foreach (PersonViewModel person in Model)
+{
+    <hr>
+    <div class="row">
+        <div class="col-md-2">
+            <h2>Id:</h2>
+            <h3>@person.Id</h3>
+        </div>
+        <div class="col-md-2">
+            <h2>Name:</h2>
+            <h3>@person.Name</h3>
+        </div>
+        <div class="col-md-2">
+            <h2>Surname:</h2>
+            <h3>@person.Surname</h3>
+        </div>
+        <div class="col-md-2">
+            <h2>Age:</h2>
+            <h3>@person.Age</h3>
+        </div>
+        <div class="col-md-2">
+            @foreach (Auto car in person.Garage)
+            {
+                <ul>
+                    <li>@car.Targa</li>
+                    <li>@car.Marca</li>
+                    <li>@car.Modello</li>
+                    <li>@car.Colore</li>
+                </ul>
+            }
+        </div>
+    </div>
+}
