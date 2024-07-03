@@ -6,12 +6,9 @@ using People.Models.ValueTypes;
 
 namespace People.Models.ViewModels
 {
-    public class PersonViewModel
+    public class PersonDetailViewModel : PersonViewModel
     {
-        public int Id{get;set;} 
-        public string Name{get;set;}
-        public string Surname{get;set;}
-        public int Age{get;set;}
+        public List<Auto> Garage { get ; set; }
 
     }
 }
