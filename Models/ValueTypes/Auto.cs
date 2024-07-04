@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace People.Models.ValueTypes
@@ -23,9 +24,17 @@ namespace People.Models.ValueTypes
             this.Colore = colore;
         }
 
-        public override string ToString()
+        public static Auto FromDataRow(DataRow carRow)
         {
-            return $"{Targa} {Marca} {Modello} {Colore}";
+            var car = new Auto
+            (
+                Convert.ToString(carRow["Targa"]),
+                Convert.ToString(carRow["Marca"]),
+                Convert.ToString(carRow["Modello"]),
+                Convert.ToString(carRow["Colore"])
+            );
+
+        return car;
         }
     }
 }

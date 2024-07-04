@@ -22,7 +22,7 @@ namespace People.Models.ViewModels
                 Id = Convert.ToInt32(row["Id"]),
                 Name = Convert.ToString(row["Name"]),
                 Surname = Convert.ToString(row["Surname"]),
-                Age = Convert.ToInt32(row["Age"]),
+                Age = Convert.ToInt32(row["Age"])
             };
 
         return person;
