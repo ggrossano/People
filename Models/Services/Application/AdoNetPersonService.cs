@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using People.Models.ViewModels;
+using People.Models.ValueTypes;
 using People.Models.Services.Infrastructure;
 
 
@@ -39,22 +40,30 @@ namespace People.Models.Services.Application
 
         public PersonDetailViewModel GetPerson(int id)
         {
-            throw new NotImplementedException();
-
-            /* string query = "SELECT * FROM Auto WHERE Id = PersonId";
+            string query = $"SELECT * FROM Person WHERE Id = {id};" + $"SELECT * FROM Auto WHERE PersonId = {id}";
 
             DataSet dataSet = db.Query(query);
 
             var dataTable = dataSet.Tables[0];
-            var personList = new List<PersonViewModel>();
-
-            foreach (DataRow personRow in dataTable.Rows)
+            if (dataTable.Rows.Count != 1)
             {
-                var person = PersonViewModel.FromDataRow(personRow);
-                personList.Add(person);
+                throw new InvalidOperationException($"Nessuna persona trovata con l'id :{id}");
+            }
+            var personRow = dataTable.Rows[0];
+            var person = PersonDetailViewModel.FromDataRow(personRow);
+
+            var carTable = dataSet.Tables[1];
+            if (dataTable.Rows.Count == 0)
+            {
+                throw new InvalidOperationException($"Nessuna macchina trovata per la persona con l'id :{id}");
             }
 
-            return personList; */
+            foreach (DataRow carRow in carTable.Rows)
+            {
+                person.Garage.Add(Auto.FromDataRow(carRow));
+            }
+
+            return person;
         }
 
     }
