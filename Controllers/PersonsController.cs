@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using People.Models.Services.Application;
 using People.Models.ViewModels;
+using People.Models.ViewModels.InputModels;
 
 namespace People.Controllers
 {
@@ -35,6 +36,19 @@ namespace People.Controllers
             PersonDetailViewModel viewModel = personService.GetPerson(id);
             ViewData["Title"] = viewModel.Name;
             return View(viewModel);
+        }
+
+        public IActionResult Create(){
+            ViewData["Title"] = "Nuova persona";
+            var input = new PersonCreateInputModel();
+            return View(input);
+        }
+        //etichetta
+        [HttpPost]
+        public IActionResult Create(PersonCreateInputModel input){
+            ViewData["Title"] = "Nuova persona";
+            PersonDetailViewModel person = personService.CreatePerson(input);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

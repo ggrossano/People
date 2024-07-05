@@ -6,7 +6,7 @@ using System.Data;
 using People.Models.ViewModels;
 using People.Models.ValueTypes;
 using People.Models.Services.Infrastructure;
-
+using People.Models.ViewModels.InputModels;
 
 namespace People.Models.Services.Application
 {
@@ -22,7 +22,7 @@ namespace People.Models.Services.Application
 
         public List<PersonViewModel> GetPeople()
         {
-            string query = "SELECT Id, Name, Surname, Age FROM Person";
+            FormattableString query = $"SELECT Id, Name, Surname, Age FROM Person";
 
             DataSet dataSet = db.Query(query);
 
@@ -40,7 +40,8 @@ namespace People.Models.Services.Application
 
         public PersonDetailViewModel GetPerson(int id)
         {
-            string query = $"SELECT * FROM Person WHERE Id = {id};" + $"SELECT * FROM Auto WHERE PersonId = {id}";
+            FormattableString query = $@"SELECT * FROM Person WHERE Id = {id}; 
+            SELECT * FROM Auto WHERE PersonId = {id}";
 
             DataSet dataSet = db.Query(query);
 
@@ -63,6 +64,18 @@ namespace People.Models.Services.Application
                 person.Garage.Add(Auto.FromDataRow(carRow));
             }
 
+            return person;
+        }
+
+        public PersonDetailViewModel CreatePerson(PersonCreateInputModel input)
+        {
+            string Name = input.Name;
+            string Surname = input.Surname;
+            string Age = input.Age;
+
+            var personId = db.QueryInsert($@"INSERT INTO Person (Name, Surname, Age) VALUES ({Name}, {Surname}, {Age});");
+
+            PersonDetailViewModel person = GetPerson(personId);
             return person;
         }
 
