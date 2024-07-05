@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using People.Models.ViewModels;
 using People.Models.ValueTypes;
+using People.Models.ViewModels.InputModels;
 
 namespace People.Models.Services.Application
 {
@@ -12,7 +13,7 @@ namespace People.Models.Services.Application
         public List<PersonViewModel> GetPeople()
         {
             var rand = new Random();
-            
+
             var peopleList = new List<PersonViewModel>();
 
             for (int i = 1; i <= 20; i++)
@@ -56,6 +57,11 @@ namespace People.Models.Services.Application
             };
 
             return person;
+        }
+
+        public PersonDetailViewModel CreatePerson(PersonCreateInputModel input)
+        {
+            throw new NotImplementedException();
         }
 
     }

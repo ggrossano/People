@@ -2,6 +2,7 @@
 
 <h1>
     @ViewData["Title"]
+    <a class="btn btn-outline-primary btn-sm" asp-action="Create"><i class="fa fa-plus"></i> Crea nuovo</a>
 </h1>
 
 @foreach (PersonViewModel person in Model)
@@ -24,17 +25,6 @@
             <h2>Age:</h2>
             <h3>@person.Age</h3>
         </div>
-        @* <div class="col-md-2">
-            @foreach (Auto car in person.Garage)
-            {
-                <ul>
-                    <li>@car.Targa</li>
-                    <li>@car.Marca</li>
-                    <li>@car.Modello</li>
-                    <li>@car.Colore</li>
-                </ul>
-            }
-        </div> *@
         <div class="col-md-2 d-flex align-items-center">
             <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@person.Id">Dettaglio persona</a>
         </div>
